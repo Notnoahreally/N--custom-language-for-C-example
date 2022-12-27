@@ -1,0 +1,65 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <stdbool.h>
+#include <stdarg.h>
+
+// Macro to replace the use of "true" with "yes"
+#define true 1
+// Macro to replace the use of "false" with "no"
+#define false 0
+#define yes 1
+#define no 0
+
+// Function to generate a random number within a given range
+int ran_math(int min, int max, int seed) {
+  srand(seed);
+  return rand() % (max - min + 1) + min;
+}
+
+// Function to behave similarly to "printf" and print messages to the console
+void showf(char* format, ...) {
+
+    va_list args;
+  va_start(args, format);
+  vprintf(format, args);
+  va_end(args);
+}
+
+int main() {
+  // Number of lives remaining
+  int lives = 3;
+  // Current score
+  int score = 0;
+  // Flag to indicate when the game is over
+  bool gameOver = no;
+
+  // Loop until the game is over
+  while (gameOver == no) {
+    // Generate a random number between 1 and 10
+    int r = ran_math(1, 10, time(0));
+    // Prompt the player to enter a guess
+    showf("Enter a number between 1 and 10: ");
+    int guess;
+    scanf("%d", &guess);
+    // Check if the guess is correct
+    if (guess == r) {
+      showf("Correct! You gained a point.\n");
+      score++;
+    } else {
+      showf("Wrong! You lost a life.\n");
+      lives--;
+      // Check if the player has no more lives left
+      if (lives == 0) {
+        gameOver = yes;
+      }
+    }
+  }
+
+  // Print the final score
+  showf("Game over! Your final score is %d.\n", score);
+  return 0;
+}
+//A function called "ran_math" was defined to generate random numbers within a given range.
+//A function called "showf" was defined to behave similarly to "printf" and print messages to the console.
+//Macros were defined to replace the use of "true" and "false" with "yes" and "no", respectively.
