@@ -1,0 +1,19 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+// Function to generate a random number within a given range
+int ran_math(int min, int max, int seed) {
+  // Seed the random number generator with the given seed value
+  srand(seed);
+  // Generate and return a random number within the given range
+  return rand() % (max - min + 1) + min;
+}
+
+int main() {
+  // Generate a random number between 1 and 10, using the current time as the seed value
+  int r = ran_math(1, 10, time(0));
+  // Print the generated number
+  printf("Random number: %d\n", r);
+  return 0;
+}
